@@ -4,6 +4,7 @@ urlpatterns = [
     path('user/signup/', UserSignup.as_view(),name="signup"),
     path('user/signin/', UserSignIn.as_view(),name="signin"),
     path('user/profile/', UserProfile.as_view(),name="profile"),
+    path('user/logout/', LogoutView.as_view(),name="logout"),
     path('movies/<str:movie_type>', FetchAndStoreMovies.as_view(), name='fetch_and_store_movie'),
     path('movies/', MovieList.as_view(),name="movie"),
     path('search-movie/', SearchMovie.as_view(), name='search_movie'),

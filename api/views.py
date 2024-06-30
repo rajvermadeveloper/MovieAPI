@@ -1,10 +1,12 @@
 from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.contrib.auth import authenticate
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.exceptions import TokenError
 from accounts.serializers import *
 from movie.serializers import *
 from django.conf import settings
@@ -65,7 +67,27 @@ class UserProfile(APIView):
         if serializer.data:
             return Response(serializer.data,status=status.HTTP_200_OK)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-            
+
+class LogoutView(APIView):
+    permission_classes = (IsAuthenticated,)
+    def post(self, request):
+        try:
+            refresh_token = request.data['refresh']
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+
+            # Blacklist the access token
+            auth = JWTAuthentication()
+            user_auth_tuple = auth.authenticate(request)
+            if user_auth_tuple is not None:
+                user, token = user_auth_tuple
+            BlacklistedAccessToken.objects.create(token=str(token))
+
+            return Response({"msg": "Successfully logged out."}, status=status.HTTP_205_RESET_CONTENT)
+        except TokenError as e:
+            return Response({"error": "Token is blacklisted or invalid."}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)       
 
 # ============= MOVIE API ============
 class FetchAndStoreMovieData(APIView):
