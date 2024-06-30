@@ -25,40 +25,41 @@ git clone https://github.com/rajvermadeveloper/MovieAPI.git
 cd MovieAPI
 ```
 
-2. Create python virtual environment in MovieAPI folder.
+2. Create a Python virtual environment in the MovieAPI folder.
 
-'''
+```
 python -m venv venv
-'''
+
+```
 
 3. Install the required packages:
 
-'''
+```
 pip install -r requirements.txt
 
-'''
+```
 
 4. Set up your TMDB API key:
 Create a .env file in the project root and add your TMDB API key:
 
-'''
+```
 TMDB_API_KEY=your_tmdb_api_key
 TMDB_ACCESS_TOKEN=your_tmdb_access_token
-'''
+```
 
 4. Run migrations:
 
-'''
+```
 python manage.py makemigrations
 python manage.py migrate
-'''
+```
 
 5. Start the development server:
 
-'''
+```
 python manage.py runserver
 
-'''
+```
 
 
 ## API Documentation
@@ -79,7 +80,7 @@ The API uses token-based authentication. To obtain a token, use the following en
 
 Login and Signup by following Fields:
 
-'''
+```
     {
         "email":"rajverma12@gmail.com",
         "name":"Raj Verma",
@@ -87,9 +88,11 @@ Login and Signup by following Fields:
         "password2":"123456",
         "tc":true #Terms & Conditions
     }
-'''
-After Signup and Login you are access Token Like This :
-'''
+```
+
+After Signup and Login, you are access Token Like This :
+
+```
     {
         "token": {
             "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxOTgyNDgwNywiaWF0IjoxNzE5NzM4NDA3LCJqdGkiOiJhNTgxZWQxYTZlYTI0ZTFlYWUzYjViYWVhZmU5ZTJiZCIsInVzZXJfaWQiOjZ9.7ZIVTKsb9BUmRSyYqgPsH1-LjRMn-P6Qrid8NC4R8Kk",
@@ -97,14 +100,15 @@ After Signup and Login you are access Token Like This :
         },
         "msg": "Login Successfully!"
     }
-'''
+
+```
 
 
 Include the Access token in the Authorization header for authenticated requests:
 
-'''
+```
 Authorization: Bearer your_token
-'''
+```
 
 # Endpoints
 
