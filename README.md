@@ -46,6 +46,7 @@ Create a .env file in the project root and add your TMDB API key:
 TMDB_API_KEY=your_tmdb_api_key
 TMDB_ACCESS_TOKEN=your_tmdb_access_token
 ```
+**LINK:** https://www.themoviedb.org/
 
 4. Run migrations:
 
